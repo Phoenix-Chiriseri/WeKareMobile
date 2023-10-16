@@ -2,6 +2,8 @@ package com.example.helloworld;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -38,6 +40,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
     Request request;
     String availableJobsUrl = "https://munanacreatives.co.zw/job-board/availableJobs";
     String bodyString;
+    ProgressBar progressBar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +48,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
         setContentView(R.layout.view_available_jobs);
         client = new OkHttpClient();
         listOfJobs = new ArrayList<Job>();
+        progressBar = (ProgressBar)findViewById(R.id.progressBar);
         availableJobRecycler = (RecyclerView) findViewById(R.id.recyclerAvailableJobs);
         //fetch the available jobs into the recycler view and set them to the adapter
         showAvailableJobs();
@@ -52,6 +56,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
 
     private void showAvailableJobs() {
 
+        progressBar.setVisibility(View.VISIBLE); // Show the progress bar
         client = new OkHttpClient();
         final MediaType JSON
                 = MediaType.get("application/json; charset=utf-8");
@@ -78,6 +83,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
             public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
 
                 //string that contains the json response from the weather api endpoint
+                progressBar.setVisibility(View.INVISIBLE); // Show the progress bar
                 final String string = response.body().string();
                 Log.i("advice", "onResponse: " + string);
                 runOnUiThread(new Runnable() {
@@ -85,7 +91,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
                     public void run() {
 
                         //Snackbar.make(v,string,Snackbar.LENGTH_LONG).show();
-                        AvailableJobsAdapter adapter = new AvailableJobsAdapter(listOfJobs); // Initialize the adapter with the list
+                        AvailableJobsAdapter adapter = new AvailableJobsAdapter(ViewAvailableJobs.this,listOfJobs); // Initialize the adapter with the list
                         availableJobRecycler.setAdapter(adapter);
                         availableJobRecycler.setLayoutManager(new LinearLayoutManager(ViewAvailableJobs.this));
                         try {
@@ -96,6 +102,8 @@ public class ViewAvailableJobs extends AppCompatActivity {
                                 Job singleJob = new Job();
                                 singleJob.setName(object.getString("job_name"));
                                 singleJob.setDate(object.getString("date"));
+                                singleJob.setShift(object.getString("shift"));
+                                singleJob.setId(object.getString("id"));
                                 listOfJobs.add(singleJob);
                             }
                         } catch (JSONException e) {

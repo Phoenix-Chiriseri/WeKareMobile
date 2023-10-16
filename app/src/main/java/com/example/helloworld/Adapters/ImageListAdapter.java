@@ -11,6 +11,8 @@ import com.example.helloworld.R;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ImageListAdapter extends BaseAdapter {
     private Context context;
     private List<ListItem> itemList;
@@ -41,7 +43,7 @@ public class ImageListAdapter extends BaseAdapter {
             convertView = View.inflate(context, R.layout.list_item, null);
         }
 
-        ImageView itemImage = convertView.findViewById(R.id.itemImage);
+        CircleImageView itemImage = convertView.findViewById(R.id.itemImage);
         TextView itemTitle = convertView.findViewById(R.id.itemTitle);
 
         ListItem item = itemList.get(position);

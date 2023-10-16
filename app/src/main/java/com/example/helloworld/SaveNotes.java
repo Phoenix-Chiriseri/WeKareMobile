@@ -1,5 +1,6 @@
 package com.example.helloworld;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.*;
@@ -17,6 +18,7 @@ public class SaveNotes extends AppCompatActivity {
     NotesAdapter notesAdapter;
     Spinner shiftSpinner;
     String selectedShift;
+    Button viewSavedNotes;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,6 +29,17 @@ public class SaveNotes extends AppCompatActivity {
         jobNotes = (EditText)findViewById(R.id.noteNameEditText);
         saveNotes = (Button) findViewById(R.id.saveButton);
         shiftSpinner = (Spinner)findViewById(R.id.shiftSpinner);
+        viewSavedNotes = (Button)findViewById(R.id.viewSavedNotes);
+
+
+        viewSavedNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                startActivity(new Intent(getApplicationContext(),ViewSavedNotes.class));
+
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.shift_options, android.R.layout.simple_spinner_item);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -54,9 +67,7 @@ public class SaveNotes extends AppCompatActivity {
                 String date = jobDate.getText().toString();
                 String notes = jobNotes.getText().toString();
                 selectedShift = shiftSpinner.getSelectedItem().toString();
-
                 if(name.equals("")||date.equals("")||notes.equals("")||selectedShift.equals("")){
-
                     Snackbar.make(view,"Please Dont Leave Any Empty Fields",Snackbar.LENGTH_SHORT).show();
                 }
                 else{

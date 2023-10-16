@@ -4,12 +4,14 @@
     android:layout_height="wrap_content"
     android:padding="16dp">
 
-    <ImageView
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:id="@+id/itemImage"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:src="@drawable/ic_launcher_background"
-        android:scaleType="centerCrop" />
+        android:layout_width="96dp"
+        android:layout_height="96dp"
+        android:src="@drawable/logo"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
 
     <TextView
         android:id="@+id/itemTitle"

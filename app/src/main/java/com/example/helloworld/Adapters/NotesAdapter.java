@@ -1,17 +1,18 @@
 package com.example.helloworld.Adapters;
 
-
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 public class NotesAdapter extends SQLiteOpenHelper {
-
-    private static final String DATABASE_NAME = "job_board";
+    private static final String DATABASE_NAME = "notes.db";
     private static final int DATABASE_VERSION = 1;
 
-    public static final String TABLE_NAME = "notes";
+    public static final String TABLE_NAME = "mynotes";
+    public static final String COLUMN_ID = "ID";
     public static final String COLUMN_NAME = "Name";
     public static final String COLUMN_DATE = "Date";
     public static final String COLUMN_NOTES = "Notes";
@@ -19,7 +20,7 @@ public class NotesAdapter extends SQLiteOpenHelper {
 
     private static final String TABLE_CREATE =
             "CREATE TABLE " + TABLE_NAME + " (" +
-                    "ID INTEGER PRIMARY KEY AUTOINCREMENT, " + // Corrected AUTOINCREMENT
+                    COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                     COLUMN_NAME + " TEXT, " +
                     COLUMN_DATE + " TEXT, " +
                     COLUMN_NOTES + " TEXT, " +
@@ -31,25 +32,31 @@ public class NotesAdapter extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL(TABLE_CREATE); // Execute the table creation statement
-
+        try {
+            db.execSQL(TABLE_CREATE);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // Add any necessary database schema upgrade logic here
-        // For example, you may DROP and recreate the table or make schema changes.
-        // Be sure to handle different versions properly.
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_NAME);
+        onCreate(db);
     }
 
-    public long saveNotes(String name, String jobDate, String jobNotes, String selectedShift) {
-        SQLiteDatabase database = this.getWritableDatabase();
+    public long saveNotes(String name, String date, String notes, String shift) {
+        SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(COLUMN_NAME, name); // Use COLUMN_NAME constant
-        values.put(COLUMN_DATE, jobDate); // Use COLUMN_DATE constant
-        values.put(COLUMN_NOTES, jobNotes); // Use COLUMN_NOTES constant
-        values.put(COLUMN_SHIFT, selectedShift); // Use COLUMN_SHIFT constant
-        long rowId = database.insert(TABLE_NAME, null, values);
-        return rowId;
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_DATE, date);
+        values.put(COLUMN_NOTES, notes);
+        values.put(COLUMN_SHIFT, shift);
+        return db.insert(TABLE_NAME, null, values);
+    }
+
+    public Cursor getData() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.query(TABLE_NAME, null, null, null, null, null, null);
     }
 }

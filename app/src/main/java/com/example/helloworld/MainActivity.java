@@ -21,6 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton callForEnquiries;
     ListView listView;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,10 +31,10 @@ public class MainActivity extends AppCompatActivity {
 
         //Create a list of items and add it to the list items
         List<ListItem> itemList = new ArrayList<>();
-        itemList.add(new ListItem(R.drawable.logo, "View Available Jobs"));
-        itemList.add(new ListItem(R.drawable.logo, "Navigate To Online Job Board"));
-        itemList.add(new ListItem(R.drawable.logo, "Save Notes On Job"));
-        itemList.add(new ListItem(R.drawable.logo, "Recommend A Job On Whatsapp"));
+        itemList.add(new ListItem(R.drawable.job, "View Available Jobs"));
+        itemList.add(new ListItem(R.drawable.go, "Navigate To Online Job Board"));
+        itemList.add(new ListItem(R.drawable.pencil, "Save Notes On Job"));
+        itemList.add(new ListItem(R.drawable.quality, "Recommend A Job On Whatsapp"));
         // Create and set the adapter
         ImageListAdapter adapter = new ImageListAdapter(this, itemList);
         listView.setAdapter(adapter);
