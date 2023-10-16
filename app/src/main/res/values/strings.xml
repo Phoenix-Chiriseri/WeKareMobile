@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">We Kare Job Board</string>
+    <string-array name="shift_options">
+        <item>Morning Shift</item>
+        <item>Early Shift</item>
+        <item>Late Shift</item>
+        <item>Long Day</item>
+    </string-array>
+</resources>
