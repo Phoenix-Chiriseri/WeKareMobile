@@ -38,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
         ImageListAdapter adapter = new ImageListAdapter(this, itemList);
         listView.setAdapter(adapter);
 
+
         callForEnquiries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

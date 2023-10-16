@@ -61,6 +61,13 @@ public class SaveNotes extends AppCompatActivity {
                 }
                 else{
                     //NotesAdapter adapter = new NotesAdapter();
+                    NotesAdapter notesAdapter = new NotesAdapter(SaveNotes.this);
+                    long savedNotes = notesAdapter.saveNotes(name,date,notes,selectedShift);
+                    if(savedNotes==1){
+                        Snackbar.make(view,"Notes saved successfully",Snackbar.LENGTH_SHORT).show();
+                    }else{
+                        Snackbar.make(view,"Could not save notes",Snackbar.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
