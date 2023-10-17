@@ -28,4 +28,9 @@ public class ViewFacebookPage extends AppCompatActivity {
         webView.loadUrl(url);
         progressBar = (ProgressBar)findViewById(R.id.progressBar);;
     }
+
+    @Override
+    public void onBackPressed() {
+        finish();
+    }
 }
