@@ -38,7 +38,7 @@ public class ViewAvailableJobs extends AppCompatActivity {
     List<Job> listOfJobs;
     OkHttpClient client;
     Request request;
-    String availableJobsUrl = "https://munanacreatives.co.zw/job-board/availableJobs";
+    String availableJobsUrl = "https://munanacreatives.co.zw/job-board/availablejobs";
     String bodyString;
     ProgressBar progressBar;
 

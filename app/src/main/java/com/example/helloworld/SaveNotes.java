@@ -2,14 +2,23 @@ package com.example.helloworld;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.*;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.helloworld.Adapters.DatabaseHelper;
+import com.example.helloworld.Adapters.NoteAdapter;
 import com.example.helloworld.Adapters.NotesAdapter;
+import com.example.helloworld.Models.Note;
 import com.google.android.material.snackbar.Snackbar;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 public class SaveNotes extends AppCompatActivity {
 
@@ -19,7 +28,7 @@ public class SaveNotes extends AppCompatActivity {
     Spinner shiftSpinner;
     String selectedShift;
     Button viewSavedNotes;
-    @Override
+
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.notes);
@@ -67,21 +76,21 @@ public class SaveNotes extends AppCompatActivity {
                 String date = jobDate.getText().toString();
                 String notes = jobNotes.getText().toString();
                 selectedShift = shiftSpinner.getSelectedItem().toString();
-                if(name.equals("")||date.equals("")||notes.equals("")||selectedShift.equals("")){
-                    Snackbar.make(view,"Please Dont Leave Any Empty Fields",Snackbar.LENGTH_SHORT).show();
-                }
-                else{
-                    //NotesAdapter adapter = new NotesAdapter();
-                    NotesAdapter notesAdapter = new NotesAdapter(SaveNotes.this);
-                    long savedNotes = notesAdapter.saveNotes(name,date,notes,selectedShift);
-                    if(savedNotes==1){
-                        Snackbar.make(view,"Notes saved successfully",Snackbar.LENGTH_SHORT).show();
-                    }else{
-                        Snackbar.make(view,"Could not save notes",Snackbar.LENGTH_SHORT).show();
+                if (name.equals("") || date.equals("") || notes.equals("") || selectedShift.equals("")) {
+                    Snackbar.make(view, "Please Dont Leave Any Empty Fields", Snackbar.LENGTH_SHORT).show();
+                } else {
+
+                    // Define a file name for your text file
+                    NotesAdapter myAdapter = new NotesAdapter(SaveNotes.this);
+                    long saved = myAdapter.saveNotes(name, date, notes, selectedShift);
+                    if (saved != -1) {
+                        Toast.makeText(getApplicationContext(), "Notes Saved" + saved, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Notes Not Saved", Toast.LENGTH_LONG).show();
                     }
+
                 }
             }
         });
-
     }
 }

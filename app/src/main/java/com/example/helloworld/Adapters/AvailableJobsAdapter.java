@@ -59,23 +59,7 @@ public class AvailableJobsAdapter extends RecyclerView.Adapter<AvailableJobsAdap
             jobNameTextView = itemView.findViewById(R.id.jobNameTextView);
             dateTextView = itemView.findViewById(R.id.dateTextView);
             shift = itemView.findViewById(R.id.txtShift);
-            txtNavigateToResults = itemView.findViewById(R.id.txtNavigateToResults);
-            txtNavigateToResults.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    int position = getAdapterPosition(); // Get the position of the clicked item
-                    if (position != RecyclerView.NO_POSITION) {
-                        Job job = jobList.get(position);
-                        String jobId = job.getId(); // Retrieve the job ID
-                        Log.d("id",jobId);
-                        Intent navigateToAvailableJobs = new Intent(context, NavigateToAvailableJobs.class);
-                        Bundle extras = new Bundle();
-                        extras.putString("id", jobId);
-                        navigateToAvailableJobs.putExtras(extras);
-                        context.startActivity(navigateToAvailableJobs);
-                    }
-                }
-            });
+
         }
     }
 }

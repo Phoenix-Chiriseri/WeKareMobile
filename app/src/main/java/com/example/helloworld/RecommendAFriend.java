@@ -67,10 +67,9 @@ public class RecommendAFriend extends AppCompatActivity {
                 else{
                     //NotesAdapter adapter = new NotesAdapter();
                     try {
-                        String message = "Im recommending this job: "
-                                + name + "from WeKare Healthcare"+"\nDate:for the job is "
-                                + date + "\nThe shift is: "
-                                + selectedShift;
+                        String message = "I'm recommending this job: " + name + " from  WeKare Intergrated Services " +
+                                "\nDate for the job is " + date +
+                                "\nThe shift is: " + selectedShift;
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
