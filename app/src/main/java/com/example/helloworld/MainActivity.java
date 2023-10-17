@@ -38,10 +38,41 @@ public class MainActivity extends AppCompatActivity {
         itemList.add(new ListItem(R.drawable.go, "Navigate To Online Job Board"));
         itemList.add(new ListItem(R.drawable.pencil, "Save Notes On Job"));
         itemList.add(new ListItem(R.drawable.quality, "Recommend A Job On Whatsapp To Someone"));
+        itemList.add(new ListItem(R.drawable.facebook,"Like Or Comment On Our Facebook Page"));
         // Create and set the adapter
         ImageListAdapter adapter = new ImageListAdapter(this, itemList);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                switch (i) {
+
+                    //this is the main navigation to the view available jobs activity
+                    case (0):
+                        startActivity(new Intent(MainActivity.this, NavigateToJobBoard.class));
+                        //Intent newJobs = new Intent(MainActivity.this, ViewAvailableJobs.class);
+                        //startActivity(newJobs);
+                        break;
+
+                    //this is the navigation that will go to the navigate to jobboard activity
+                    case 1:
+                        startActivity(new Intent(MainActivity.this, SaveNotes.class));
+                        break;
+
+                    case 2:
+                        startActivity(new Intent(getApplicationContext(), RecommendAFriend.class));
+                        break;
+
+                    case 3:
+                        startActivity(new Intent(getApplicationContext(),ViewFacebookPage.class));
+
+                        break;
+
+                }
+
+            }
+        });
         callForEnquiries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -72,31 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 // Permission denied by the user; handle it as needed (e.g., show a message or ask again)
             }
             //ArrayAdapter<String> adapter = new ArrayAdapter<>(String)
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    switch (i) {
-
-                        //this is the main navigation to the view available jobs activity
-                        case (0):
-                            startActivity(new Intent(MainActivity.this, NavigateToJobBoard.class));
-                            //Intent newJobs = new Intent(MainActivity.this, ViewAvailableJobs.class);
-                            //startActivity(newJobs);
-                            break;
-
-                        //this is the navigation that will go to the navigate to jobboard activity
-                        case 1:
-                            startActivity(new Intent(MainActivity.this, SaveNotes.class));
-                            break;
-
-                        case 2:
-                            startActivity(new Intent(getApplicationContext(), RecommendAFriend.class));
-                            break;
-
-                    }
-
-                }
-            });
 
         }
 

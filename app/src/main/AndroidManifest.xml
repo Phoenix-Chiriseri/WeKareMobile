@@ -33,7 +33,13 @@
                 <action android:name="android.intent.action.MAIN" />
             </intent-filter>
         </activity>
-
+        <activity android:name=".ViewFacebookPage"
+            android:exported="true">
+            <!-- Intent filter for the main launcher activity -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ViewSavedNotes"
             android:exported="true">
             <!-- Intent filter for the main launcher activity -->
