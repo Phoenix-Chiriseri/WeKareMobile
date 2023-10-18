@@ -2,6 +2,7 @@ package com.example.helloworld;
 
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -46,8 +47,10 @@ public class ViewSavedNotes extends AppCompatActivity {
             String notesName = cursor.getString(3);
             String shift = cursor.getString(4);
 
+            Log.d("Returned Data",name+date+notesName+shift);
+
             Note note = new Note();
-            note.setNoteName(name);
+            note.setNoteName(notesName);
             note.setDate(date);
             note.setShift(shift);
             note.setJobName(name);

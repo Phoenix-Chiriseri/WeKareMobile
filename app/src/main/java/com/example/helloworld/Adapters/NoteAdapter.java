@@ -39,13 +39,12 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_note_item, parent, false);
         return new NoteViewHolder(view);
     }
-
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
         Note note = noteList.get(position);
-        holder.jobName.setText(note.getJobName());
-        holder.dateName.setText(note.getDate());
-        holder.txtNotes.setText(note.getNoteName());
+        holder.jobName.setText("Job Name-"+note.getJobName());
+        holder.dateName.setText("Date-"+note.getDate());
+        holder.txtNotes.setText("Notes-"+note.getNoteName());
         holder.shift.setText("Shift is"+ " "+ note.getShift());
     }
     @Override
