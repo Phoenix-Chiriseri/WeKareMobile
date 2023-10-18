@@ -24,18 +24,15 @@ import com.example.helloworld.SaveNotes;
 import java.util.List;
 
 public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder> {
-    private static List<Note> notes;
+    private static List<Note> noteList;
     Button button;
     private static Context context;
-    private Cursor cursor;
 
-    public NoteAdapter(Context context,List<Note> noteList,Cursor cursor) {
+    public NoteAdapter(Context context,List<Note> noteList) {
         this.context = context;
-        this.notes = noteList;
-        this.cursor = cursor;
+        this.noteList = noteList;
+
     }
-
-
     @NonNull
     @Override
     public NoteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -45,33 +42,26 @@ public class NoteAdapter extends RecyclerView.Adapter<NoteAdapter.NoteViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull NoteViewHolder holder, int position) {
-        if (cursor.moveToPosition(position)) {
-            @SuppressLint("Range") String name = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NAME));
-            @SuppressLint("Range") String date = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_DATE));
-            @SuppressLint("Range") String notes = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_NOTES));
-            @SuppressLint("Range") String shift = cursor.getString(cursor.getColumnIndex(DatabaseHelper.COLUMN_SHIFT));
-
-            holder.jobNameTextView.setText(name);
-            holder.dateTextView.setText(date);
-            holder.txtNotes.setText(notes);
-            holder.shift.setText(shift);
-        }
+        Note note = noteList.get(position);
+        holder.jobName.setText(note.getJobName());
+        holder.dateName.setText(note.getDate());
+        holder.txtNotes.setText(note.getNoteName());
+        holder.shift.setText("Shift is"+ " "+ note.getShift());
     }
     @Override
     public int getItemCount() {
-        return notes.size();
+        return noteList.size();
     }
-
     public static class NoteViewHolder extends RecyclerView.ViewHolder {
-        TextView jobNameTextView;
-        TextView dateTextView;
+        TextView jobName;
+        TextView dateName;
         TextView shift;
         TextView txtNotes;
 
         public NoteViewHolder(@NonNull View itemView) {
             super(itemView);
-            jobNameTextView = itemView.findViewById(R.id.textJobName);
-            dateTextView = itemView.findViewById(R.id.textDate);
+            jobName = itemView.findViewById(R.id.textJobName);
+            dateName = itemView.findViewById(R.id.textDate);
             shift = itemView.findViewById(R.id.textShift);
             txtNotes = itemView.findViewById(R.id.textNotes);
 

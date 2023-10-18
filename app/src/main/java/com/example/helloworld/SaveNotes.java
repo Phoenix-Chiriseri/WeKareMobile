@@ -79,7 +79,6 @@ public class SaveNotes extends AppCompatActivity {
                 if (name.equals("") || date.equals("") || notes.equals("") || selectedShift.equals("")) {
                     Snackbar.make(view, "Please Dont Leave Any Empty Fields", Snackbar.LENGTH_SHORT).show();
                 } else {
-
                     // Define a file name for your text file
                     NotesAdapter myAdapter = new NotesAdapter(SaveNotes.this);
                     long saved = myAdapter.saveNotes(name, date, notes, selectedShift);

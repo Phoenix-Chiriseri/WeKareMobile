@@ -6,28 +6,23 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteQueryBuilder;
 
-import com.example.helloworld.Adapters.DatabaseHelper;
-
 public class NotesAdapter {
     private DatabaseHelper dbHelper;
+    private SQLiteDatabase database;
 
     public NotesAdapter(Context context) {
-
         dbHelper = new DatabaseHelper(context);
     }
 
     public long saveNotes(String name, String date, String notes, String shift) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
-
         ContentValues values = new ContentValues();
         values.put(DatabaseHelper.COLUMN_NAME, name);
         values.put(DatabaseHelper.COLUMN_DATE, date);
         values.put(DatabaseHelper.COLUMN_NOTES, notes);
         values.put(DatabaseHelper.COLUMN_SHIFT, shift);
-
         long id = db.insert(DatabaseHelper.TABLE_NOTES, null, values);
         db.close();
-
         return id;
     }
 

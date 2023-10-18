@@ -1,7 +1,11 @@
 package com.example.helloworld;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -10,12 +14,15 @@ import android.widget.ListView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
 import com.example.helloworld.Adapters.ImageListAdapter;
 import com.example.helloworld.Models.ListItem;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+
 import android.Manifest;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,9 +57,15 @@ public class MainActivity extends AppCompatActivity {
 
                     //this is the main navigation to the view available jobs activity
                     case (0):
-                        startActivity(new Intent(MainActivity.this, NavigateToJobBoard.class));
-                        //Intent newJobs = new Intent(MainActivity.this, ViewAvailableJobs.class);
-                        //startActivity(newJobs);
+
+                        if (isNetworkAvailable()) {
+                            // No network available, navigate to the job board activity.
+                            startActivity(new Intent(MainActivity.this, NavigateToJobBoard.class));
+                        } else {
+                            // Network is available, show a Snackbar.
+                            Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
+                        }
+
                         break;
 
                     //this is the navigation that will go to the navigate to jobboard activity
@@ -65,7 +78,15 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case 3:
-                        startActivity(new Intent(getApplicationContext(),ViewFacebookPage.class));
+                        //startActivity(new Intent(getApplicationContext(),ViewFacebookPage.class));
+
+                        if (isNetworkAvailable()) {
+                            // No network available, navigate to the job board activity.
+                            startActivity(new Intent(MainActivity.this, ViewFacebookPage.class));
+                        } else {
+                            // Network is available, show a Snackbar.
+                            Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
+                        }
 
                         break;
 
@@ -106,5 +127,45 @@ public class MainActivity extends AppCompatActivity {
 
         }
 
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager manager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = manager.getActiveNetworkInfo();
+
+        boolean isAvailable = false;
+        if (networkInfo != null && networkInfo.isConnected()) {
+            isAvailable = true;
+        }
+        return isAvailable;
+    }
+    @Override
+    public void onBackPressed() {
+
+        AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+        alertDialog.setIcon(R.drawable.logo);
+        alertDialog.setTitle("Exit?");
+        alertDialog.setMessage("are you sure you want to exit?");
+        alertDialog.setPositiveButton("OK",new DialogInterface.OnClickListener(){
+
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                finish();
+            }
+        });
+
+        alertDialog.setNegativeButton("NO",new DialogInterface.OnClickListener(){
+
+
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+
+        AlertDialog dialog = alertDialog.create();
+        dialog.show();
     }
 }
