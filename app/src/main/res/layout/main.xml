@@ -26,4 +26,17 @@
         app:layout_constraintTop_toBottomOf="@id/listView"
         app:srcCompat="@android:drawable/ic_menu_call"
         tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:textColor="#000"
+        android:id="@+id/txtBranding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:text="Developed By B-e.Digital"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.461"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/floatingActionButton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

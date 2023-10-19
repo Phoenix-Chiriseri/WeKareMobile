@@ -24,6 +24,8 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import android.Manifest;
+import android.widget.TextView;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,22 +35,39 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     String phoneNumber="0771 255 849";
     int requestCode = 3;
+    TextView txtBranding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         listView = findViewById(R.id.listView);
+        txtBranding = (TextView)findViewById(R.id.txtBranding);
+        //button to call for any enquiries
         callForEnquiries = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         //Create a list of items and add it to the list items
         List<ListItem> itemList = new ArrayList<>();
         itemList.add(new ListItem(R.drawable.go, "Navigate To Online Job Board"));
         itemList.add(new ListItem(R.drawable.pencil, "Save Notes On Job"));
         itemList.add(new ListItem(R.drawable.quality, "Recommend A Job On Whatsapp To Someone"));
+        //itemList.add(new ListItem(R.drawable.quality, "Search Content On Job"));
         itemList.add(new ListItem(R.drawable.facebook,"Like Or Comment On Our Facebook Page"));
         // Create and set the adapter
         ImageListAdapter adapter = new ImageListAdapter(this, itemList);
         listView.setAdapter(adapter);
+
+        txtBranding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //replaced with the url of the webpage that i want to use
+                String url = "https://www.b-e.digital/";
+                Uri webpage = Uri.parse(url);
+                Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                }
+            }
+        });
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -76,10 +95,8 @@ public class MainActivity extends AppCompatActivity {
                     case 2:
                         startActivity(new Intent(getApplicationContext(), RecommendAFriend.class));
                         break;
-
                     case 3:
                         //startActivity(new Intent(getApplicationContext(),ViewFacebookPage.class));
-
                         if (isNetworkAvailable()) {
                             // No network available, navigate to the job board activity.
                             startActivity(new Intent(MainActivity.this, ViewFacebookPage.class));
@@ -87,13 +104,17 @@ public class MainActivity extends AppCompatActivity {
                             // Network is available, show a Snackbar.
                             Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
                         }
-
                         break;
+                        /*case 4:
+                        Intent notifications = new Intent(getApplicationContext(),SearchAboutJob.class);
+                        startActivity(notifications);
+                        break;*/
+                     }
+                 }
 
-                }
-
-            }
         });
+
+        //this is the button that will make the phone calls to the server
         callForEnquiries.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return isAvailable;
     }
+
     @Override
     public void onBackPressed() {
 
