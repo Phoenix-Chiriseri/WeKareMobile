@@ -1,43 +1,50 @@
 package com.example.helloworld;
 
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import android.widget.ProgressBar;
-
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 public class NavigateToJobBoard extends AppCompatActivity {
 
-    //set the wevbview to the application
-    WebView mWebView;
-    ProgressBar progressBar;
+    private WebView mWebView;
+
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.navigate);
-        //the webview will load the page and will set the content to that page
+
         mWebView = (WebView) findViewById(R.id.wecareWebView);
-        progressBar = (ProgressBar)findViewById(R.id.progressBar);
+        mWebView.setBackgroundColor(Color.WHITE);
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.setFocusable(true);
+        mWebView.setFocusableInTouchMode(true);
 
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                // The web page has finished loading, dismiss the progress bar
-                progressBar.setVisibility(ProgressBar.INVISIBLE);
+                // The web page has finished loading.
+                // You can show a dialog here to ask the user if they want to open in an external browser.
             }
         });
 
-        mWebView.setBackgroundColor(Color.WHITE);
-        mWebView.getSettings().setJavaScriptEnabled(true);
-        //webview will load the url to the job board and people can use the built in browser to navigate to the view
+        //loadWebPageInWebView();
+        openInExternalBrowser();
+    }
+
+    public void loadWebPageInWebView() {
         mWebView.loadUrl("https://munanacreatives.co.zw/job-board/");
     }
 
-    @Override
-    public void onBackPressed() {
-        finish();
+    public void openInExternalBrowser() {
+        String url = "https://munanacreatives.co.zw/job-board/";
+        Uri webpage = Uri.parse(url);
+        Intent intent = new Intent(Intent.ACTION_VIEW, webpage);
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        }
     }
 }

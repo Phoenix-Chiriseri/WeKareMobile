@@ -9,10 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import com.example.helloworld.Adapters.NotesAdapter;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -67,14 +65,14 @@ public class RecommendAFriend extends AppCompatActivity {
                 else{
                     //NotesAdapter adapter = new NotesAdapter();
                     try {
-                        String message = "I'm recommending this job: " + name + " from  WeKare Intergrated Services " +
+                        String message = "Theres a job that im recommending you from  WeKare Intergrated Services requiring " + name + "  " +
                                 "\nDate for the job is " + date +
                                 "\nThe shift is: " + selectedShift;
                         Intent sendIntent = new Intent();
                         sendIntent.setAction(Intent.ACTION_SEND);
                         sendIntent.putExtra(Intent.EXTRA_TEXT, message);
                         sendIntent.setType("text/plain");
-                        sendIntent.setPackage("com.whatsapp"); // Specify WhatsApp packa
+                        sendIntent.setPackage("com.whatsapp"); // Specify WhatsApp package
                         startActivity(sendIntent);
                     } catch (android.content.ActivityNotFoundException ex) {
                         // Handle the case where WhatsApp is not installed on the device

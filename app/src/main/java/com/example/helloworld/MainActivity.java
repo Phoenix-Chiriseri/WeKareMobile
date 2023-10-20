@@ -78,8 +78,10 @@ public class MainActivity extends AppCompatActivity {
                     case (0):
 
                         if (isNetworkAvailable()) {
-                            // No network available, navigate to the job board activity.
-                            startActivity(new Intent(MainActivity.this, NavigateToJobBoard.class));
+                            Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
+                            myWebLink.setData(Uri.parse("https://munanacreatives.co.zw/job-board/"));
+                            startActivity(myWebLink);
+
                         } else {
                             // Network is available, show a Snackbar.
                             Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
