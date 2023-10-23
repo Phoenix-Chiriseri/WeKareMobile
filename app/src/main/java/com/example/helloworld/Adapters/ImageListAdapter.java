@@ -9,6 +9,8 @@ import android.widget.TextView;
 import com.example.helloworld.Models.ListItem;
 import com.example.helloworld.R;
 
+import org.w3c.dom.Text;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -45,11 +47,13 @@ public class ImageListAdapter extends BaseAdapter {
 
         CircleImageView itemImage = convertView.findViewById(R.id.itemImage);
         TextView itemTitle = convertView.findViewById(R.id.itemTitle);
+        TextView itemDescription = convertView.findViewById(R.id.itemDescription);
 
         ListItem item = itemList.get(position);
 
         itemImage.setImageResource(item.getImageResource());
         itemTitle.setText(item.getTitle());
+        itemDescription.setText(item.getDescription());
 
         return convertView;
     }

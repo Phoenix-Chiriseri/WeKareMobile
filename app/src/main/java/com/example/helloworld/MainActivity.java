@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
@@ -35,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     ListView listView;
     String phoneNumber="0771 255 849";
     int requestCode = 3;
+
+    //the textview that will be clicked to show the b-e.digital website
     TextView txtBranding;
 
     @Override
@@ -47,11 +48,11 @@ public class MainActivity extends AppCompatActivity {
         callForEnquiries = (FloatingActionButton) findViewById(R.id.floatingActionButton);
         //Create a list of items and add it to the list items
         List<ListItem> itemList = new ArrayList<>();
-        itemList.add(new ListItem(R.drawable.go, "Navigate To Online Job Board"));
-        itemList.add(new ListItem(R.drawable.pencil, "Save Notes On Job"));
-        itemList.add(new ListItem(R.drawable.quality, "Recommend A Job On Whatsapp To Someone"));
+        itemList.add(new ListItem(R.drawable.go, "Navigate To Online Job Board","Visit Our Job Board And Easily Apply For A Job"));
+        itemList.add(new ListItem(R.drawable.pencil, "Save Notes On Job","Save Quick Notes On Your Phone"));
+        itemList.add(new ListItem(R.drawable.quality, "Recommend A Job","Recommend A Job To Someone Via WhatsApp"));
         //itemList.add(new ListItem(R.drawable.quality, "Search Content On Job"));
-        itemList.add(new ListItem(R.drawable.facebook,"Like Or Comment On Our Facebook Page"));
+        itemList.add(new ListItem(R.drawable.facebook,"Our Facebook Page","Visit And Like Our Facebook Page "));
         // Create and set the adapter
         ImageListAdapter adapter = new ImageListAdapter(this, itemList);
         listView.setAdapter(adapter);
@@ -76,12 +77,10 @@ public class MainActivity extends AppCompatActivity {
 
                     //this is the main navigation to the view available jobs activity
                     case (0):
-
                         if (isNetworkAvailable()) {
                             Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
                             myWebLink.setData(Uri.parse("https://munanacreatives.co.zw/job-board/"));
                             startActivity(myWebLink);
-
                         } else {
                             // Network is available, show a Snackbar.
                             Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
@@ -98,19 +97,15 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(new Intent(getApplicationContext(), RecommendAFriend.class));
                         break;
                     case 3:
-                        //startActivity(new Intent(getApplicationContext(),ViewFacebookPage.class));
-                        if (isNetworkAvailable()) {
-                            // No network available, navigate to the job board activity.
-                            startActivity(new Intent(MainActivity.this, ViewFacebookPage.class));
-                        } else {
-                            // Network is available, show a Snackbar.
-                            Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
-                        }
+                            if (isNetworkAvailable()) {
+                                Intent myWebLink = new Intent(android.content.Intent.ACTION_VIEW);
+                                myWebLink.setData(Uri.parse("https://www.facebook.com/profile.php?id=61551243421157"));
+                                startActivity(myWebLink);
+                            } else {
+                                //Network is not  available, show a Snackbar
+                                Snackbar.make(findViewById(android.R.id.content), "Network not available", Snackbar.LENGTH_SHORT).show();
+                            }
                         break;
-                        /*case 4:
-                        Intent notifications = new Intent(getApplicationContext(),SearchAboutJob.class);
-                        startActivity(notifications);
-                        break;*/
                      }
                  }
 

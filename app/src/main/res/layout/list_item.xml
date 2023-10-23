@@ -14,11 +14,24 @@
         app:civ_border_color="#FF000000"/>
 
     <TextView
+        android:textColor="#000"
         android:id="@+id/itemTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/itemImage"
         android:layout_marginStart="16dp"
         android:text="Title" />
+
+    <TextView
+        android:textSize="22px"
+        android:layout_marginTop="22dp"
+        android:textStyle="italic"
+        android:textColor="@color/design_default_color_primary_variant"
+        android:id="@+id/itemDescription"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/itemImage"
+        android:layout_marginStart="16dp"
+        android:text="Description" />
 
 </RelativeLayout>

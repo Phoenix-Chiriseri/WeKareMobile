@@ -22,7 +22,6 @@ public class NavigateToJobBoard extends AppCompatActivity {
         mWebView.getSettings().setJavaScriptEnabled(true);
         mWebView.setFocusable(true);
         mWebView.setFocusableInTouchMode(true);
-
         mWebView.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
@@ -30,7 +29,6 @@ public class NavigateToJobBoard extends AppCompatActivity {
                 // You can show a dialog here to ask the user if they want to open in an external browser.
             }
         });
-
         //loadWebPageInWebView();
         openInExternalBrowser();
     }

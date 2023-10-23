@@ -21,27 +21,30 @@
             android:layout_height="wrap_content"
             android:text="Job Name"
             android:textSize="18sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            android:textColor="#000"/>
 
         <TextView
             android:id="@+id/textDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Date"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            android:textColor="#000"/>
 
         <TextView
-            android:textColor="#00361c"
             android:id="@+id/textShift"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Shift" />
+            android:text="Shift"
+            android:textColor="#000" />
 
         <TextView
             android:id="@+id/textNotes"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="TextView"
+            android:textColor="#000"/>
 
     </LinearLayout>
 </androidx.cardview.widget.CardView>

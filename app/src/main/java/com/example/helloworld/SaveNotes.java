@@ -87,7 +87,6 @@ public class SaveNotes extends AppCompatActivity {
                     } else {
                         Toast.makeText(getApplicationContext(), "Notes Not Saved", Toast.LENGTH_LONG).show();
                     }
-
                 }
             }
         });
